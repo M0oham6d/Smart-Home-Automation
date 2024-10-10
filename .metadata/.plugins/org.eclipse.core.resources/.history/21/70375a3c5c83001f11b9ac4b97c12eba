@@ -1,0 +1,15 @@
+/*
+ * HAL_led.c
+ * Author: Muhammed Ayman
+ * Module: LCD
+ */
+
+
+#ifndef HAL_LED_H_
+#define HAL_LED_H_
+
+#define RED_LED			PB5
+#define GREEN_LED		PB6
+#define BLUE_LED		PB7
+
+#endif /* HAL_LED_H_ */

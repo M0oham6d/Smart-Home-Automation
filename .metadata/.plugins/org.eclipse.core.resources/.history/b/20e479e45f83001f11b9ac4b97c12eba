@@ -1,0 +1,12 @@
+/*
+ * HAL_ldr.h
+ * Author: Muhammed Ayman
+ * Module: LDR
+ */
+
+#include "HAL_ldr.h"
+
+uint16 LDR_getLightIntensity(void)
+{
+	return
+}

@@ -1,0 +1,17 @@
+/*
+ * APPLICATION_Smart_Home.h
+ *
+ *  Created on: Oct 5, 2024
+ *      Author: Muhammed Ayman
+ */
+
+#ifndef APPLICATION_SMART_HOME_H_
+#define APPLICATION_SMART_HOME_H_
+
+#include "HAL_lcd.h"
+#include "HAL_lm35_sensor.h"
+#include "HAL_motor.h"
+
+void tempSensorWithMoter(void);
+
+#endif /* APPLICATION_SMART_HOME_H_ */

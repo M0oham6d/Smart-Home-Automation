@@ -1,0 +1,119 @@
+/*
+ * HAL_motor.c
+ * Author: Muhammed Ayman
+ * Module: DC Motor
+ */
+
+#include "HAL_motor.h"
+
+#include "../MCAL/timer0.h"
+
+/*******************************************************************************
+ *                      Functions Definitions                                  *
+ *******************************************************************************/
+
+/*
+ * Function to initialize DC motor.
+ */
+void DcMotor_Init(void)
+{
+	/*
+	 * Setup pin direction for INT1 & INT2 as output.
+	 * Setup pin direction for Enable as output.
+	 * */
+	GPIO_setupPinDirection(PORT_CONNECTION, PIN_INT1, PIN_OUTPUT);
+	GPIO_setupPinDirection(PORT_CONNECTION, PIN_INT2, PIN_OUTPUT);
+	GPIO_setupPinDirection(ENABLE_PORT_CONNECTION, ENABLE_PIN, PIN_OUTPUT);
+
+	/* Stop the motor at the beginning. */
+	GPIO_writePin(PORT_CONNECTION, PIN_INT1, LOGIC_LOW);
+	GPIO_writePin(PORT_CONNECTION, PIN_INT2, LOGIC_LOW);
+}
+
+/*
+ * Function to rotate the motor.
+ * Rotate in CW or CCW or STOP the motor.
+ * Control the motor speed using PWM.
+ */
+void DcMotor_Rotate(DcMotor_State state, uint8 speed)
+{
+	switch (speed)
+	{
+	case MOTOR_STOP:
+		GPIO_writePin(PORT_CONNECTION, PIN_INT1, LOGIC_LOW);
+		GPIO_writePin(PORT_CONNECTION, PIN_INT2, LOGIC_LOW);
+		break;
+
+	case MOTOR_MINIMUM_SPEED:
+
+#ifdef MOTOR_MODE_PWM
+		PWM_Timer0_Start(MOTOR_MINIMUM_SPEED);
+#endif
+
+		if(state == CW)
+		{
+			GPIO_writePin(PORT_CONNECTION, PIN_INT1, LOGIC_HIGH);
+			GPIO_writePin(PORT_CONNECTION, PIN_INT2, LOGIC_LOW);
+		}
+		else
+		{
+			GPIO_writePin(PORT_CONNECTION, PIN_INT1, LOGIC_LOW);
+			GPIO_writePin(PORT_CONNECTION, PIN_INT2, LOGIC_HIGH);
+		}
+		break;
+
+	case MOTOR_SECOND_SPEED:
+
+#ifdef MOTOR_MODE_PWM
+		PWM_Timer0_Start(MOTOR_SECOND_SPEED);
+#endif
+
+		if(state == CW)
+		{
+			GPIO_writePin(PORT_CONNECTION, PIN_INT1, LOGIC_HIGH);
+			GPIO_writePin(PORT_CONNECTION, PIN_INT2, LOGIC_LOW);
+		}
+		else
+		{
+			GPIO_writePin(PORT_CONNECTION, PIN_INT1, LOGIC_LOW);
+			GPIO_writePin(PORT_CONNECTION, PIN_INT2, LOGIC_HIGH);
+		}
+		break;
+
+	case MOTOR_THIRD_SPEED:
+
+#ifdef MOTOR_MODE_PWM
+		PWM_Timer0_Start(MOTOR_THIRD_SPEED);
+#endif
+
+		if(state == CW)
+		{
+			GPIO_writePin(PORT_CONNECTION, PIN_INT1, LOGIC_HIGH);
+			GPIO_writePin(PORT_CONNECTION, PIN_INT2, LOGIC_LOW);
+		}
+		else
+		{
+			GPIO_writePin(PORT_CONNECTION, PIN_INT1, LOGIC_LOW);
+			GPIO_writePin(PORT_CONNECTION, PIN_INT2, LOGIC_HIGH);
+		}
+		break;
+
+	case MOTOR_MAX_SPEED:
+
+#ifdef MOTOR_MODE_PWM
+		PWM_Timer0_Start(MOTOR_MAX_SPEED);
+#endif
+
+		if(state == CW)
+		{
+			GPIO_writePin(PORT_CONNECTION, PIN_INT1, LOGIC_HIGH);
+			GPIO_writePin(PORT_CONNECTION, PIN_INT2, LOGIC_LOW);
+		}
+		else
+		{
+			GPIO_writePin(PORT_CONNECTION, PIN_INT1, LOGIC_LOW);
+			GPIO_writePin(PORT_CONNECTION, PIN_INT2, LOGIC_HIGH);
+		}
+		break;
+	}
+}

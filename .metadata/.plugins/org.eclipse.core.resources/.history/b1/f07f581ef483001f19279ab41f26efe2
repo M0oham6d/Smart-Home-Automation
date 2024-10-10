@@ -1,0 +1,263 @@
+/*
+ * Smart_Home.c
+ * Author: Muhammed Ayman
+ * Application: Smart Home
+ */
+
+#include "APPLICATION_Smart_Home.h"
+#include "HAL_lcd.h"
+#include "HAL_ldr_sensor.h"
+#include "HAL_leds.h"
+#include "HAL_lm35_sensor.h"
+#include "HAL_motor.h"
+#include "HAL_flame_sensor.h"
+#include "HAL_buzzer.h"
+
+/*******************************************************************************
+ *                      Functions Definitions                                  *
+ *******************************************************************************/
+
+/*
+ * Function to initialize LCD with the text
+ * FAN STATE, TEMP, LDR
+ */
+void LCD_text_init(void)
+{
+	LCD_init();
+//	LCD_displayStringRowColumn(0, 4, "Fan is    ");
+//	LCD_displayStringRowColumn(1, 0, "Temp=  ");
+//	LCD_displayStringRowColumn(1, 8, "LDR=   %");
+}
+
+/*
+ * Function to measure temperature and set up the motor speed according to temperature.
+ * If temp < 25	--> STOP MOTOR.
+ * Else if temp >= 25 && temp < 30	--> Start MOTOR	with minimum speed.
+ * Else if temp >= 30 && temp < 35	--> Start MOTOR	with second speed.
+ * Else if temp >= 35 && temp < 40	--> Start MOTOR	with third speed.
+ * Else if temp > 40 --> Start MOTOR with MAX speed.
+ */
+void moving_motor_according_to_temp_and_display_res(void)
+{
+	uint8 temp = LM35_getTemperature();			/* Get temp from TEMP sensor. */
+
+	/*
+	 * Set the LCD cursor in specific position.
+	 * Convert temp value from the sensor into string.
+	 */
+	LCD_moveCursor(1,5);
+	LCD_intgerToString(temp);
+
+	if(temp < 25)
+	{
+		/* Display OFF and stop the motor. */
+		LCD_displayStringRowColumn(0, 11, "OFF");
+		DcMotor_Rotate(STOP, MOTOR_STOP);
+	}
+	else if(temp >= 25 && temp < 30)
+	{
+		/* Display ON and Start the motor with minimum speed. */
+		LCD_displayStringRowColumn(0, 11, "ON ");
+		DcMotor_Rotate(CW, MOTOR_MINIMUM_SPEED);
+	}
+	else if(temp >= 30 && temp < 35)
+	{
+		/* Display ON and Start the motor with second speed. */
+		LCD_displayStringRowColumn(0, 11, "ON ");
+		DcMotor_Rotate(CW, MOTOR_SECOND_SPEED);
+	}
+	else if(temp >= 35 && temp < 40)
+	{
+		/* Display ON and Start the motor with third speed. */
+		LCD_displayStringRowColumn(0, 11, "ON ");
+		DcMotor_Rotate(CW, MOTOR_THIRD_SPEED);
+	}
+	else if(temp >= 40)
+	{
+		/* Display ON and Start the motor with max speed. */
+		LCD_displayStringRowColumn(0, 11, "ON ");
+		DcMotor_Rotate(CW, MOTOR_MAX_SPEED);
+	}
+}
+
+/*
+ * Function to turn on LEDs in dark spaces using LDR sensor.
+ * If light intensity < 15 --> Turn on all LEDs.
+ * Else if light intensity >= 15 && < 50 --> Turn on 2 LEDs only.
+ * Else if light intensity >= 50 && < 70 --> Turn on 1 LEDs only.
+ * Else if light intensity >= 70 --> Turn off all LEDs.
+ */
+
+void automatic_light(void)
+{
+	uint16 light_intensity = LDR_getLightIntensity();			/* Get light intensity from LDR sensor. */
+
+	LCD_moveCursor(1,12);
+	LCD_intgerToString(light_intensity);
+
+	/* Turn on all LEDs and display the LDR readings. */
+	if(light_intensity < 15)
+	{
+		/* If the reading number goes below 10, remove the second number from LCD. */
+		if(light_intensity < 10)
+		{
+			LCD_displayStringRowColumn(1, 13, " ");
+		}
+		LED_on(red);
+		LED_on(green);
+		LED_on(blue);
+	}
+	/* Turn on 2 LEDs only and display the LDR readings. */
+	else if(light_intensity >= 15 && light_intensity < 50)
+	{
+		LED_on(red);
+		LED_on(green);
+		LED_off(blue);
+	}
+	/* Turn on 1 LEDs only and display the LDR readings. */
+	else if(light_intensity >= 50 && light_intensity < 70)
+	{
+		LED_on(red);
+		LED_off(green);
+		LED_off(blue);
+	}
+	/* Turn off all LEDs and display the LDR readings. */
+	else if(light_intensity >= 70)
+	{
+		/* If the reading number goes below 100, remove the third number from LCD. */
+		if(light_intensity < 100)
+		{
+			LCD_displayStringRowColumn(1, 14, " ");
+		}
+		LED_off(red);
+		LED_off(green);
+		LED_off(blue);
+	}
+}
+
+/*
+ * Function to make alert if there is a fire.
+ * If flame sensor detects fire, buzzer will turn on and display alert on LCD and stop all application.
+ * else, buzzer is off the the system does the normal operation
+ */
+void fire_alert(void)
+{
+	static uint8 flag = 0;
+
+	if(FlameSensor_getValue())
+	{
+		flag = 1;
+		LCD_clearScreen();
+		while(FlameSensor_getValue())
+		{
+			LCD_displayStringRowColumn(0, 1, "Critical Alert");
+			Buzzer_on();
+		}
+	}
+	else
+	{
+		Buzzer_off();
+
+		if(flag == 1)
+		{
+			LCD_clearScreen();
+		}
+		LCD_displayStringRowColumn(0, 4, "Fan is    ");
+		LCD_displayStringRowColumn(1, 0, "Temp=  ");
+		LCD_displayStringRowColumn(1, 8, "LDR=   %");
+		flag = 0;
+	}
+}
+
+/*
+ * The Main Function.
+ */
+int main(void)
+{
+	LCD_text_init();	/* Initializing LCD and display on it. */
+	DcMotor_Init();		/* Initializing DC Motor. */
+	LEDS_init();		/* Initializing LEDs. */
+	Buzzer_init();		/* Initializing Buzzer. */
+	FlameSensor_init();	/* Initializing Flame Sensor. */
+
+	while(1)
+	{
+//		fire_alert();
+//		moving_motor_according_to_temp_and_display_res();
+//		automatic_light();
+
+
+
+
+		static uint8 flag = 0;
+
+		if(FlameSensor_getValue())
+		{
+			flag = 1;
+			LCD_clearScreen();
+			while(FlameSensor_getValue())
+			{
+				LCD_displayStringRowColumn(0, 1, "Critical Alert");
+				Buzzer_on();
+			}
+		}
+		else
+		{
+			Buzzer_off();
+
+			if(flag == 1)
+			{
+				LCD_clearScreen();
+			}
+			LCD_displayStringRowColumn(0, 4, "Fan is    ");
+			LCD_displayStringRowColumn(1, 0, "Temp=  ");
+			LCD_displayStringRowColumn(1, 8, "LDR=   %");
+			flag = 0;
+
+
+
+			uint8 temp = LM35_getTemperature();			/* Get temp from TEMP sensor. */
+
+			/*
+			 * Set the LCD cursor in specific position.
+			 * Convert temp value from the sensor into string.
+			 */
+			LCD_moveCursor(1,5);
+			LCD_intgerToString(temp);
+
+			if(temp < 25)
+			{
+				/* Display OFF and stop the motor. */
+				LCD_displayStringRowColumn(0, 11, "OFF");
+				DcMotor_Rotate(STOP, MOTOR_STOP);
+			}
+			else if(temp >= 25 && temp < 30)
+			{
+				/* Display ON and Start the motor with minimum speed. */
+				LCD_displayStringRowColumn(0, 11, "ON ");
+				DcMotor_Rotate(CW, MOTOR_MINIMUM_SPEED);
+			}
+			else if(temp >= 30 && temp < 35)
+			{
+				/* Display ON and Start the motor with second speed. */
+				LCD_displayStringRowColumn(0, 11, "ON ");
+				DcMotor_Rotate(CW, MOTOR_SECOND_SPEED);
+			}
+			else if(temp >= 35 && temp < 40)
+			{
+				/* Display ON and Start the motor with third speed. */
+				LCD_displayStringRowColumn(0, 11, "ON ");
+				DcMotor_Rotate(CW, MOTOR_THIRD_SPEED);
+			}
+			else if(temp >= 40)
+			{
+				/* Display ON and Start the motor with max speed. */
+				LCD_displayStringRowColumn(0, 11, "ON ");
+				DcMotor_Rotate(CW, MOTOR_MAX_SPEED);
+			}
+		}
+
+	}
+
+	return 0;
+}

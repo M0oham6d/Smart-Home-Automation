@@ -1,0 +1,12 @@
+/*
+ * HAL_buzzer.h
+ * Author: Muhammed Ayman
+ * Module: Buzzer
+ */
+
+#ifndef HAL_BUZZER_H_
+#define HAL_BUZZER_H_
+
+
+
+#endif /* HAL_BUZZER_H_ */

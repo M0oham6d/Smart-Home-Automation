@@ -1,0 +1,18 @@
+/*
+ * HAL_flame_sensor.h
+ *
+ *  Created on: Oct 6, 2024
+ *      Author: Muhammed Ayman
+ */
+
+#ifndef HAL_FLAME_SENSOR_H_
+#define HAL_FLAME_SENSOR_H_
+
+/*******************************************************************************
+ *                                Definitions                                  *
+ *******************************************************************************/
+
+#define FLAME_PORT_CONNECTION					PORTD_ID
+#define FLAME_PIN_CONNECTION					PIN2_ID
+
+#endif /* HAL_FLAME_SENSOR_H_ */

@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;Smart_Home/HAL_led.c&apos; to &apos;HAL_leds.c&apos;" description="Rename resource &apos;HAL_led.c&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="HAL_led.c" name="HAL_leds.c" stamp="1728163763085" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;Smart_Home/HAL_led.h&apos; to &apos;HAL_leds.h&apos;" description="Rename resource &apos;HAL_led.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="HAL_led.h" name="HAL_leds.h" stamp="1728163770458" updateReferences="true"/>
+</session>

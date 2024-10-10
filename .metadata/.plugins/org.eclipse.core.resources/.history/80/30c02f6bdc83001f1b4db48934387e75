@@ -1,0 +1,33 @@
+/*
+ * timer0.h
+ *
+ *  Created on: Oct 4, 2024
+ *      Author: Muhammed Ayman
+ */
+
+#ifndef MCAL_TIMER0_H_
+#define MCAL_TIMER0_H_
+
+#include "standard_types.h"
+
+/*******************************************************************************
+ *                                Definitions                                  *
+ *******************************************************************************/
+
+#define TIMER0_MODE				PWM
+#define TIMER0_PWM_25			64
+#define TIMER0_PWM_50			128
+#define TIMER0_PWM_75			192
+#define TIMER0_PWM_100			255
+
+/*******************************************************************************
+ *                      Functions Prototypes                                   *
+ *******************************************************************************/
+
+/*
+ * Function to initialize Timer0 with Fast PWM mode.
+ */
+
+void PWM_Timer0_Start(uint8 duty_cycle);
+
+#endif /* MCAL_TIMER0_H_ */

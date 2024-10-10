@@ -1,0 +1,13 @@
+/*
+ * HAL_buzzer.h
+ *
+ *  Created on: Oct 6, 2024
+ *      Author: Muhammed Ayman
+ */
+
+#ifndef HAL_BUZZER_H_
+#define HAL_BUZZER_H_
+
+
+
+#endif /* HAL_BUZZER_H_ */

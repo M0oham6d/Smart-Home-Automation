@@ -1,0 +1,31 @@
+/*
+ * APPLICATION_Smart_Home.h
+ *
+ *  Created on: Oct 5, 2024
+ *      Author: Muhammed Ayman
+ */
+
+#ifndef APPLICATION_SMART_HOME_H_
+#define APPLICATION_SMART_HOME_H_
+
+#include "HAL_lcd.h"
+#include "HAL_lm35_sensor.h"
+#include "HAL_motor.h"
+
+/*******************************************************************************
+ *                      Functions Prototypes                                   *
+ *******************************************************************************/
+
+void tempSensorWithMoter(void);
+
+/*
+ * Function to measure temperature and set up the motor speed according to temperature.
+ * If temp < 25	--> STOP MOTOR.
+ * Else if temp >= 25 && temp < 30	--> Start MOTOR	with minimum speed.
+ * Else if temp >= 30 && temp < 35	--> Start MOTOR	with second speed.
+ * Else if temp >= 35 && temp < 40	--> Start MOTOR	with third speed.
+ * Else if temp > 40 --> Start MOTOR with MAX speed.
+ */
+void moving_motor_according_to_temp_and_display_res(void);
+
+#endif /* APPLICATION_SMART_HOME_H_ */

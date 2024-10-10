@@ -1,0 +1,13 @@
+/*
+ * HAL_led.h
+ *
+ *  Created on: Oct 5, 2024
+ *      Author: Muhammed Ayman
+ */
+
+#ifndef HAL_LED_H_
+#define HAL_LED_H_
+
+
+
+#endif /* HAL_LED_H_ */

@@ -1,0 +1,12 @@
+/*
+ * HAL_led.c
+ * Author: Muhammed Ayman
+ * Module: LCD
+ */
+
+#include "HAL_led.h"
+
+void LEDS_init(void)
+{
+
+}

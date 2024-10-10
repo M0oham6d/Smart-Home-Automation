@@ -1,0 +1,20 @@
+/*
+ * HAL_flame_sensor.c
+ * Author: Muhammed Ayman
+ * Module: Flame Sensor
+ */
+
+#include "HAL_flame_sensor.h"
+#
+
+/*******************************************************************************
+ *                      Functions Definitions                                  *
+ *******************************************************************************/
+
+/*
+ * Initializes the flame sensor.
+ */
+void FlameSensor_init(void)
+{
+
+}

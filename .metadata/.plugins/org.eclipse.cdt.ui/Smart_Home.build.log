@@ -1,0 +1,20 @@
+14:06:46 **** Incremental Build of configuration Debug for project Smart_Home ****
+make all 
+Invoking: Print Size
+avr-size --format=avr --mcu=atmega32 Smart_Home.elf
+AVR Memory Usage
+----------------
+Device: atmega32
+
+Program:   10352 bytes (31.6% Full)
+(.text + .data + .bootloader)
+
+Data:        311 bytes (15.2% Full)
+(.data + .bss + .noinit)
+
+
+Finished building: sizedummy
+ 
+
+14:06:46 Build Finished. 0 errors, 0 warnings. (took 236ms)
+

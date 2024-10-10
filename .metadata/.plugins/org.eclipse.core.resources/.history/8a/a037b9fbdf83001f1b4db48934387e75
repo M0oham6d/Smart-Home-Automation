@@ -1,0 +1,19 @@
+/*
+ * HAL_buzzer.c
+ * Author: Muhammed Ayman
+ * Module: Buzzer
+ */
+
+#include "HAL_buzzer.h"
+
+/*******************************************************************************
+ *                      Functions Definitions                                  *
+ *******************************************************************************/
+
+/*
+ * Initializes the buzzer pin direction and turn off the buzzer.
+ */
+void Buzzer_init(void)
+{
+
+}

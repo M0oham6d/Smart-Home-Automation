@@ -1,0 +1,8 @@
+/*
+ * HAL_buzzer.c
+ * Author: Muhammed Ayman
+ * Module: Buzzer
+ */
+
+#include "HAL_buzzer.h"
+

@@ -1,0 +1,8 @@
+/*
+ * HAL_ldr.h
+ * Author: Muhammed Ayman
+ * Module: LDR
+ */
+
+#include "HAL_ldr.h"
+

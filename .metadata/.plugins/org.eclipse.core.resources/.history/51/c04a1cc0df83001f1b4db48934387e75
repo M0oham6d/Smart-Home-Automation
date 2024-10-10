@@ -1,0 +1,13 @@
+/*
+ * HAL_buzzer.h
+ * Author: Muhammed Ayman
+ * Module: Buzzer
+ */
+
+#ifndef HAL_BUZZER_H_
+#define HAL_BUZZER_H_
+
+#define BUZZER_PORT_CONNECTION			PORTD_ID
+#define BUZZER_PIN_CONNECION			PIN3_ID
+
+#endif /* HAL_BUZZER_H_ */

@@ -1,0 +1,99 @@
+/*
+ * motor.c
+ *
+ *  Created on: Oct 4, 2024
+ *      Author: Muhammed Ayman
+ */
+
+#include "HAL_motor.h"
+
+#include "MCAL_timer0.h"
+
+void DcMotor_Init(void)
+{
+	/*
+	 * Setup pin direction for INT1 & INT2 as output.
+	 * Setup pin direction for Enable as output.
+	 * */
+	GPIO_setupPinDirection(PORT_CONNECTION, PIN_INT1, PIN_OUTPUT);
+	GPIO_setupPinDirection(PORT_CONNECTION, PIN_INT2, PIN_OUTPUT);
+	GPIO_setupPinDirection(ENABLE_PORT_CONNECTION, ENABLE_PIN, PIN_OUTPUT);
+
+	/* Stop the motor at the beginning. */
+	GPIO_writePin(PORT_CONNECTION, PIN_INT1, LOGIC_LOW);
+	GPIO_writePin(PORT_CONNECTION, PIN_INT2, LOGIC_LOW);
+}
+
+void DcMotor_Rotate(DcMotor_State state, uint8 speed)
+{
+	switch (speed)
+	{
+	case MOTOR_STOP:
+		GPIO_writePin(PORT_CONNECTION, PIN_INT1, LOGIC_LOW);
+		GPIO_writePin(PORT_CONNECTION, PIN_INT2, LOGIC_LOW);
+		break;
+
+	case MOTOR_FIRSR_SPEED:
+
+#ifdef MOTOR_MODE_PWM
+		PWM_Timer0_Start(TIMER0_PWM_25);
+#endif
+
+		if(state == CW)
+		{
+			GPIO_writePin(PORT_CONNECTION, PIN_INT1, LOGIC_HIGH);
+			GPIO_writePin(PORT_CONNECTION, PIN_INT2, LOGIC_LOW);
+		}
+		else
+		{
+			GPIO_writePin(PORT_CONNECTION, PIN_INT1, LOGIC_LOW);
+			GPIO_writePin(PORT_CONNECTION, PIN_INT2, LOGIC_HIGH);
+		}
+		break;
+
+	case MOTOR_SECOND_SPEED:
+		PWM_Timer0_Start(TIMER0_PWM_50);
+
+		if(state == CW)
+		{
+			GPIO_writePin(PORT_CONNECTION, PIN_INT1, LOGIC_HIGH);
+			GPIO_writePin(PORT_CONNECTION, PIN_INT2, LOGIC_LOW);
+		}
+		else
+		{
+			GPIO_writePin(PORT_CONNECTION, PIN_INT1, LOGIC_LOW);
+			GPIO_writePin(PORT_CONNECTION, PIN_INT2, LOGIC_HIGH);
+		}
+		break;
+
+	case MOTOR_THIRD_SPEED:
+		PWM_Timer0_Start(TIMER0_PWM_75);
+
+		if(state == CW)
+		{
+			GPIO_writePin(PORT_CONNECTION, PIN_INT1, LOGIC_HIGH);
+			GPIO_writePin(PORT_CONNECTION, PIN_INT2, LOGIC_LOW);
+		}
+		else
+		{
+			GPIO_writePin(PORT_CONNECTION, PIN_INT1, LOGIC_LOW);
+			GPIO_writePin(PORT_CONNECTION, PIN_INT2, LOGIC_HIGH);
+		}
+		break;
+
+	case MOTOR_MAX_SPEED:
+		PWM_Timer0_Start(TIMER0_PWM_100);
+
+		if(state == CW)
+		{
+			GPIO_writePin(PORT_CONNECTION, PIN_INT1, LOGIC_HIGH);
+			GPIO_writePin(PORT_CONNECTION, PIN_INT2, LOGIC_LOW);
+		}
+		else
+		{
+			GPIO_writePin(PORT_CONNECTION, PIN_INT1, LOGIC_LOW);
+			GPIO_writePin(PORT_CONNECTION, PIN_INT2, LOGIC_HIGH);
+		}
+		break;
+	}
+}

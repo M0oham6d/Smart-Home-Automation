@@ -1,0 +1,12 @@
+/*
+ * HAL_ldr.h
+ * Author: Muhammed Ayman
+ * Module: LDR
+ */
+
+#ifndef HAL_LDR_H_
+#define HAL_LDR_H_
+
+#include "standard_types.h"
+
+#endif /* HAL_LDR_H_ */
